@@ -47,9 +47,8 @@ if uploaded_file:
     st.subheader(f"Rekap Nominal Pengurangan dari Jam 00:00 - 08:00 Tanggal {selected_date.strftime('%d %B %Y')}")
     st.table(result_df)
 
-    # Tombol untuk mengunduh hasil ke Excel
-    download_df = pd.DataFrame(results[:6])
-    download_df['Nominal Pengurangan'] = download_df['Nominal Pengurangan'].str.replace(".", "", regex=False).astype(float)
+    # Tombol untuk mengunduh hasil ke Excel (semua baris termasuk total)
+    download_df = pd.DataFrame(results)
     output = BytesIO()
     with pd.ExcelWriter(output, engine='openpyxl') as writer:
         download_df.to_excel(writer, index=False)
