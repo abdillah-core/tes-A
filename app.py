@@ -31,7 +31,6 @@ if uploaded_file:
     for cabang in cabang_list:
         total_tarif = df_filtered.loc[df_filtered['ASAL'] == cabang, 'TARIF'].sum()
         total_all += total_tarif
-        formatted_tarif = str(int(total_tarif)) if total_tarif else "0"
         results.append({"ASAL": cabang.capitalize(), "Nominal Pengurangan": formatted_tarif})
 
     # Tambah 3 baris kosong
@@ -39,12 +38,10 @@ if uploaded_file:
         results.append({"ASAL": "", "Nominal Pengurangan": ""})
 
     # Tambah baris total keseluruhan
-    formatted_total_all = str(int(total_all))
     results.append({"ASAL": "Total", "Nominal Pengurangan": formatted_total_all})
 
     # Tampilkan hasil
     result_df = pd.DataFrame(results)
-    result_df["Nominal Pengurangan"] = pd.to_numeric(result_df["Nominal Pengurangan"], errors="coerce")
     st.subheader(f"Rekap Nominal Pengurangan dari Jam 00:00 - 08:00 Tanggal {selected_date.strftime('%d %B %Y')}")
     st.table(result_df)
 
