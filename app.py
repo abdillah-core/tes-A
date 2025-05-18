@@ -49,7 +49,8 @@ if uploaded_file:
 
     # Tombol untuk mengunduh hasil ke Excel (semua baris termasuk total)
     output = BytesIO()
-    with pd.ExcelWriter(output, index=False, engine='openpyxl')
+    with pd.ExcelWriter(output, index=False, engine='openpyxl') as writer:
+        download_df.to_excel(writer, index=False)
     st.download_button(
         label="Download Hasil ke Excel",
         data=output.getvalue(),
