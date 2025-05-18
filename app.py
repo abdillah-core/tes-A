@@ -31,7 +31,7 @@ if uploaded_file:
     for cabang in cabang_list:
         total_tarif = df_filtered.loc[df_filtered['ASAL'] == cabang, 'TARIF'].sum()
         total_all += total_tarif
-        formatted_tarif = f"{int(total_tarif):,}".replace(",", ".")
+        formatted_tarif = f"{int(total_tarif):,}".replace(",", ".") if total_tarif else "0"
         results.append({"ASAL": cabang.capitalize(), "Nominal Pengurangan": formatted_tarif})
 
     # Tambah 3 baris kosong
@@ -49,8 +49,7 @@ if uploaded_file:
 
     # Tombol untuk mengunduh hasil ke Excel (semua baris termasuk total)
     output = BytesIO()
-    with pd.ExcelWriter(output, engine='openpyxl') as writer:
-        download_df.to_excel(writer, index=False)
+    with pd.ExcelWriter(output, index=False, engine='openpyxl')
     st.download_button(
         label="Download Hasil ke Excel",
         data=output.getvalue(),
