@@ -48,6 +48,7 @@ if uploaded_file:
     st.table(result_df)
 
     # Tombol untuk mengunduh hasil ke Excel (semua baris termasuk total)
+    download_df = pd.DataFrame(results)
     output = BytesIO()
     with pd.ExcelWriter(output, engine='openpyxl') as writer:
         download_df.to_excel(writer, index=False)
